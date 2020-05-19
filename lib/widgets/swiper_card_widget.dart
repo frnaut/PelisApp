@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pelis_app/models/pelicula_model.dart';
 
 class SwiperCard extends StatelessWidget {
   
-  final List<dynamic> models;
+  final List<Pelicula> models;
 
-  SwiperCard({@required this.models}){}
+  SwiperCard({@required this.models});
 
 
   @override
@@ -15,23 +16,22 @@ class SwiperCard extends StatelessWidget {
 
 
     return Container(
-      padding: EdgeInsets.only(top: 30.0),
-      width: double.infinity,
-      height: _screenSize.height * 0.45,
+      padding: EdgeInsets.only(top: 10.0),
       child: Swiper(
         itemCount: models.length,
         itemBuilder: (BuildContext context, int index) {
           return ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
-            child: Image(
-                image: NetworkImage('https://i.pinimg.com/originals/3a/38/00/3a380018075cc66908049c3a081225e2.jpg'),
-                fit: BoxFit.fill,
+            child: FadeInImage(
+                  image: NetworkImage(models[index].getPoster()),
+                  placeholder: AssetImage('assets/img/original.gif'),
+                  fit: BoxFit.fill,
             ),
           );
         },
-        pagination: SwiperPagination(),
         layout: SwiperLayout.STACK,
         itemWidth: _screenSize.width * 0.7,
+        itemHeight: _screenSize.height * 0.4,
       ),
     );
   }
