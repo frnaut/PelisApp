@@ -4,29 +4,65 @@ import 'package:pelis_app/models/pelicula_model.dart';
 class HorizonalScrollWidget extends StatelessWidget{
   
   final List<Pelicula> models;
+  final Function siguientePagina;
 
-  HorizonalScrollWidget({@required this.models});
+  HorizonalScrollWidget({@required this.models, @required this.siguientePagina});
 
   @override
   Widget build(BuildContext context) {
 
     final _screenSize = MediaQuery.of(context).size;
+    final _pageController = new PageController(
+      initialPage: 1,
+      viewportFraction: 0.5,
+    );
+
+    _pageController.addListener(() {
+      
+      if(_pageController.position.pixels >= _pageController.position.maxScrollExtent - 200){
+        siguientePagina();
+      }
+    });
 
 
     return Container(
       height: _screenSize.height * 0.4,
       width: double.infinity,
-      child: PageView(
+      child: PageView.builder(
         pageSnapping: false,
-        controller: PageController(
-          initialPage: 1,
-          viewportFraction: 0.5,
-        ),
-        children: _cards(),
+        controller: _pageController,
+        itemBuilder: (context, i){
+          return _createCard(models[i]);
+        },
       ),
     );
   }
 
+  Widget _createCard( Pelicula pelicula ){
+    
+    return Container(
+        margin: EdgeInsets.only(right: 0.3),
+        child: Column(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(pelicula.getPoster()),
+                placeholder: AssetImage('assets/img/original.gif'),
+                fit: BoxFit.fill, 
+                height: 250.0,
+              ),
+            )
+          ],
+        ),
+      );
+
+  }
+
+
+
+
+  // no esta en eso solo se utiliza como referencia
   List<Widget> _cards(){
 
     return models.map((pelicula) {
