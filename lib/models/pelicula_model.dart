@@ -82,4 +82,13 @@ class Pelicula {
     }
   }
 
+  String getBackg(){
+    
+    if(backdropPath == null){
+      return 'assets/img/no-image.jpg';
+    }else {
+      return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+    }
+  }
+
 }

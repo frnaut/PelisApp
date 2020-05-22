@@ -2,8 +2,34 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:pelis_app/models/actor_model.dart';
 
 import 'package:pelis_app/models/pelicula_model.dart';
+
+
+class ActorProvider{
+  
+  String _apiKey = "c53bb7db3e5e208c28116316e7372e77";
+  String _url = "api.themoviedb.org";
+  
+
+  Future<List<Actor>> getActores(String movieId) async{
+    
+    final url = Uri.https(_url, '3/movie/$movieId}/credits', {
+      'api_key'   :   _apiKey,
+      'language'  :   'es-ES'
+    });
+
+    final resp = await  http.get(url);
+    final decoded = json.decode(resp.body);
+    final cast = new Actores.fromJsonMap(decoded['cast']);
+
+    return cast.items;
+
+  }
+
+
+}
 
 class PeliculaProvider{
 

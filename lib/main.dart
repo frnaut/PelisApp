@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pelis_app/pages/detalle_page.dart';
 import 'package:pelis_app/pages/home_page.dart';
 
 void main() {
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'PelisApp',
       initialRoute: '/',
       routes:{
-        '/'   :     (BuildContext context) => HomePage(),
+        '/'       :     (BuildContext context) => HomePage(),
+        'detalle' :     (BuildContext context) => DetallePage()
       },
     );
   }

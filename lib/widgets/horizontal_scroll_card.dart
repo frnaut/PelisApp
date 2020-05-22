@@ -32,15 +32,15 @@ class HorizonalScrollWidget extends StatelessWidget{
         pageSnapping: false,
         controller: _pageController,
         itemBuilder: (context, i){
-          return _createCard(models[i]);
+          return _createCard(models[i], context);
         },
       ),
     );
   }
 
-  Widget _createCard( Pelicula pelicula ){
+  Widget _createCard( Pelicula pelicula, BuildContext context ){
     
-    return Container(
+    final card = Container(
         margin: EdgeInsets.only(right: 0.3),
         child: Column(
           children: <Widget>[
@@ -55,6 +55,13 @@ class HorizonalScrollWidget extends StatelessWidget{
             )
           ],
         ),
+      );
+
+      return GestureDetector(
+        child: card,
+        onTap: (){
+          Navigator.of(context).pushNamed('detalle', arguments: pelicula);
+        },
       );
 
   }
@@ -63,28 +70,28 @@ class HorizonalScrollWidget extends StatelessWidget{
 
 
   // no esta en eso solo se utiliza como referencia
-  List<Widget> _cards(){
+  // List<Widget> _cards(){
 
-    return models.map((pelicula) {
+  //   return models.map((pelicula) {
       
-      return Container(
-        margin: EdgeInsets.only(right: 0.3),
-        child: Column(
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPoster()),
-                placeholder: AssetImage('assets/img/original.gif'),
-                fit: BoxFit.fill, 
-                height: 250.0,
-              ),
-            )
-          ],
-        ),
-      );
+  //     return Container(
+  //       margin: EdgeInsets.only(right: 0.3),
+  //       child: Column(
+  //         children: <Widget>[
+  //           ClipRRect(
+  //             borderRadius: BorderRadius.circular(20.0),
+  //             child: FadeInImage(
+  //               image: NetworkImage(pelicula.getPoster()),
+  //               placeholder: AssetImage('assets/img/original.gif'),
+  //               fit: BoxFit.fill, 
+  //               height: 250.0,
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     );
 
-    }).toList();
-  }
+  //   }).toList();
+  // }
 
 }
