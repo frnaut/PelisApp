@@ -14,7 +14,7 @@ class HorizonalScrollWidget extends StatelessWidget{
     final _screenSize = MediaQuery.of(context).size;
     final _pageController = new PageController(
       initialPage: 1,
-      viewportFraction: 0.5,
+      viewportFraction: 0.4,
     );
 
     _pageController.addListener(() {
@@ -26,7 +26,7 @@ class HorizonalScrollWidget extends StatelessWidget{
 
 
     return Container(
-      height: _screenSize.height * 0.4,
+      height: _screenSize.height * 0.3,
       width: double.infinity,
       child: PageView.builder(
         pageSnapping: false,
@@ -40,17 +40,21 @@ class HorizonalScrollWidget extends StatelessWidget{
 
   Widget _createCard( Pelicula pelicula, BuildContext context ){
     
+    pelicula.subId = "${pelicula.id}-subcar";
+
     final card = Container(
-        margin: EdgeInsets.only(right: 0.3),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPoster()),
-                placeholder: AssetImage('assets/img/original.gif'),
-                fit: BoxFit.fill, 
-                height: 250.0,
+            Hero(
+              tag: pelicula.subId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(pelicula.getPoster()),
+                  placeholder: AssetImage('assets/img/original.gif'),
+                  fit: BoxFit.fitHeight, 
+                  height: 200.0,
+                ),
               ),
             )
           ],

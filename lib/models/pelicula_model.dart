@@ -24,6 +24,7 @@ class Peliculas{
 
 
 class Pelicula {
+  String subId;
   double popularity;
   int voteCount;
   bool video;

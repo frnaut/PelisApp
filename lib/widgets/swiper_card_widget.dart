@@ -16,22 +16,30 @@ class SwiperCard extends StatelessWidget {
 
 
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
       child: Swiper(
         itemCount: models.length,
         itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-                  image: NetworkImage(models[index].getPoster()),
-                  placeholder: AssetImage('assets/img/original.gif'),
-                  fit: BoxFit.fill,
+          models[index].subId = "${models[index].id}-swiper"; 
+          return GestureDetector(
+            child: Hero(
+              tag: models[index].subId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                      image: NetworkImage(models[index].getPoster()),
+                      placeholder: AssetImage('assets/img/original.gif'),
+                      fit: BoxFit.fill,
+                ),
+              ),
             ),
+            onTap: (){
+              Navigator.of(context).pushNamed('detalle', arguments: models[index]);
+            },
           );
         },
         layout: SwiperLayout.STACK,
         itemWidth: _screenSize.width * 0.7,
-        itemHeight: _screenSize.height * 0.4,
+        itemHeight: _screenSize.height * 0.5,
       ),
     );
   }

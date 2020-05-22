@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pelis_app/providers/pelicula_provider.dart';
+import 'package:pelis_app/utils/search_delegate.dart';
 import 'package:pelis_app/widgets/horizontal_scroll_card.dart';
 import 'package:pelis_app/widgets/swiper_card_widget.dart';
 
@@ -17,15 +18,18 @@ class HomePage extends StatelessWidget{
       appBar: AppBar(
         title: Text("PelisApp"),
         actions: <Widget>[
-          Container(
-            child: Icon(Icons.search)
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+              showSearch(context: context, delegate: DataSearch());
+            },
           )
         ],
       ),
       body: Container(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 10.0),
+            SizedBox(height: 15.0),
             _cardSwiper(),
             _footer(context)
           ],

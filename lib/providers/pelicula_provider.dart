@@ -96,4 +96,20 @@ class PeliculaProvider{
     _cargando = false;
     return resp;
   }
+
+   Future<List<Pelicula>> searchPelicula(String query) async {
+
+    final url = Uri.https(_url, '3/search/movie', {
+      'api_key'   :   _apiKey,
+      'language'  :   _language,
+      'query'     :   query
+    });
+
+    final resp = await  http.get(url);
+    final decoded = json.decode(resp.body);
+    final peliculas = Peliculas.fromJsonMap(decoded['results']);
+
+    return peliculas.items;
+    
+  }
 }

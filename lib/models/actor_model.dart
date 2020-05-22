@@ -55,7 +55,7 @@ class Actor {
 
   String getPoster(){
   if(profilePath == null){
-    return 'assets/img/no-image.jpg';
+    return 'https://www.aimplas.es/plasticsacademy/wp-content/uploads/2019/11/profile.png';
   }else{
     return 'https://image.tmdb.org/t/p/w500/$profilePath';
   }

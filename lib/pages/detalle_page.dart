@@ -56,7 +56,8 @@ class DetallePage extends StatelessWidget {
         ),
         background: FadeInImage(
           image: NetworkImage(pelicula.getBackg()),
-          placeholder: AssetImage('assets/img/no-image.jpg'),
+          placeholder: NetworkImage("https://seeba.se/wp-content/themes/consultix/images/no-image-found-360x260.png"),
+          fit: BoxFit.cover,
         ),
       ),  
     );
@@ -68,12 +69,15 @@ class DetallePage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-              height: 200.0,
-              image: NetworkImage(pelicula.getPoster()),
-              placeholder: AssetImage("assets/img/no-image.jpg"), 
+          Hero(
+            tag: pelicula.subId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                height: 200.0,
+                image: NetworkImage(pelicula.getPoster()),
+                placeholder: AssetImage("assets/img/no-image.jpg"), 
+              ),
             ),
           ),
           SizedBox(width: 10.0),
